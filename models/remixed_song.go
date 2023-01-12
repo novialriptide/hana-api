@@ -1,6 +1,6 @@
 package models
 
-type remixedSong struct {
-	song
+type RemixedSong struct {
+	Song
 	OriginalSongID string `json:"original_song_id"`
 }
