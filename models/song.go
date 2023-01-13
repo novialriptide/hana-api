@@ -10,5 +10,4 @@ type Song struct {
 	SongGenreID string             `bson:"song_genre_id"`
 	SongSource  string             `bson:"song_source"`
 	SongName    string             `bson:"song_name"`
-	SongLength  int32              `bson:"song_length"`
 }
