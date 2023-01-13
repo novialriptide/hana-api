@@ -9,6 +9,12 @@ import (
 func main() {
 	router := gin.Default()
 
+	// Get an existing artist
+	router.GET("/artists/:artist_id", controllers.GetArtistByID)
+
+	// Add a new artist profile
+	router.POST("/artists", controllers.AddArtist)
+
 	// Get x number of songs
 	router.GET("/songs", controllers.GetSongs)
 
