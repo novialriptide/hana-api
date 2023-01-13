@@ -49,7 +49,26 @@ func addSong(ginContext *gin.Context) {
 		SongName:    ginContext.Query("song_name"),
 	}
 
-	collection.InsertOne(context.TODO(), s)
+	_, err := collection.InsertOne(context.TODO(), s)
+
+	if err != nil {
+		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{
+			IsSuccessful: true,
+			Message:      "Added a new song",
+		})
+	}
+
+	ginContext.IndentedJSON(http.StatusOK, models.Result{
+		IsSuccessful: true,
+		Message:      "Added a new song",
+	})
+}
+
+func getSongs(ginContext *gin.Context) {
+	collection := mongoClient.Database("hana-db").Collection("songs")
+
+	collection.Find(context.TODO(), bson.D{})
+
 }
 
 func getSongByID(ginContext *gin.Context) {
@@ -67,15 +86,27 @@ func getSongByID(ginContext *gin.Context) {
 	ginContext.IndentedJSON(http.StatusOK, result)
 }
 
-func getAlbumByID(context *gin.Context) {
+func addAlbum(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, albums)
 }
 
 func main() {
 	router := gin.Default()
+
+	// Get x number of songs
+	router.GET("/songs", getSongs)
+
+	// Get an existing song
 	router.GET("/songs/:song_id", getSongByID)
+
+	// Add a new song
 	router.POST("/songs", addSong)
-	router.GET("/albums", getAlbumByID)
+
+	// Add a new source to an existing song
+	// TODO: router.POST("/songs/:song_id/file")
+
+	// Add a new album
+	router.POST("/albums", addAlbum)
 
 	router.Run("localhost:25565")
 }
