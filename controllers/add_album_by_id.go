@@ -4,6 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func addAlbum(context *gin.Context) {
+func AddAlbum(context *gin.Context) {
 	// context.IndentedJSON(http.StatusOK, albums)
 }

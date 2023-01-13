@@ -22,7 +22,7 @@ func main() {
 	// TODO: router.POST("/songs/:song_id/file")
 
 	// Add a new album
-	router.POST("/albums", addAlbum)
+	router.POST("/albums", controllers.AddAlbum)
 
 	router.Run("localhost:25565")
 }
