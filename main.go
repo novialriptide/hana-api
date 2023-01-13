@@ -19,7 +19,7 @@ var albums = []models.Album{
 	{AlbumID: "0", SongIDs: []string{"52", "14"}, AlbumName: "Lmao"},
 }
 
-var mongoClient *mongo.Client
+var mongoClient *mongo.Client = connectDatabase()
 
 func connectDatabase() *mongo.Client {
 	mongoClient, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
@@ -55,8 +55,6 @@ func getAlbumByID(context *gin.Context) {
 }
 
 func main() {
-	mongoClient = connectDatabase()
-
 	router := gin.Default()
 	router.GET("/songs/:song_id", getSongByID)
 	router.GET("/albums", getAlbumByID)
