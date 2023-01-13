@@ -1,6 +1,9 @@
 package models
 
+import "go.mongodb.org/mongo-driver/bson/primitive"
+
 type Artist struct {
-	ArtistID   string `json:"artist_id"`
-	ArtistName string `json:"artist_name"`
+	ID         primitive.ObjectID `bson:"_id"`
+	ArtistID   string             `bson:"artist_id"`
+	ArtistName string             `bson:"artist_name"`
 }

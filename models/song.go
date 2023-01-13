@@ -1,11 +1,14 @@
 package models
 
+import "go.mongodb.org/mongo-driver/bson/primitive"
+
 type Song struct {
-	SongID       string   `json:"song_id"`
-	AlbumID      string   `json:"album_id"`
-	ArtistIDs    []string `json:"artist_ids"`
-	SongGenreID  string   `json:"song_genre_id"`
-	SongSourceID string   `json:"source_id"`
-	SongName     string   `json:"song_name"`
-	SongLength   int32    `json:"song_length"`
+	ID           primitive.ObjectID `bson:"_id"`
+	SongID       string             `bson:"song_id"`
+	AlbumID      string             `bson:"album_id"`
+	ArtistIDs    []string           `bson:"artist_ids"`
+	SongGenreID  string             `bson:"song_genre_id"`
+	SongSourceID string             `bson:"source_id"`
+	SongName     string             `bson:"song_name"`
+	SongLength   int32              `bson:"song_length"`
 }

@@ -1,6 +1,9 @@
 package models
 
+import "go.mongodb.org/mongo-driver/bson/primitive"
+
 type Source struct {
-	SourceID   string `json:"source_id"`
-	SourceName string `json:"source_name"`
+	ID         primitive.ObjectID `bson:"_id"`
+	SourceID   string             `bson:"source_id"`
+	SourceName string             `bson:"source_name"`
 }

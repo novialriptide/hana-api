@@ -1,7 +1,10 @@
 package models
 
+import "go.mongodb.org/mongo-driver/bson/primitive"
+
 type Album struct {
-	AlbumID   string   `json:"album_id"`
-	SongIDs   []string `json:"song_ids"`
-	AlbumName string   `json:"album_name"`
+	ID        primitive.ObjectID `bson:"_id"`
+	AlbumID   string             `bson:"album_id"`
+	SongIDs   []string           `bson:"song_ids"`
+	AlbumName string             `bson:"album_name"`
 }
