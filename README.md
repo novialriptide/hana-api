@@ -11,8 +11,8 @@
  - [ ] Add remixed song
  - [ ] Get album information
  - [ ] Add album
- - [ ] Get artist profile
- - [ ] Add artist profile
+ - [x] Get artist profile
+ - [x] Add artist profile
 
 ## Tech to Add
  - [ ] Dockerize everything
