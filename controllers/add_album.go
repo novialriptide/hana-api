@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -15,6 +16,7 @@ func AddAlbum(ginContext *gin.Context) {
 
 	s := models.Album{
 		ID:        primitive.NewObjectID(),
+		AlbumID:   uuid.New().String(),
 		SongIDs:   strings.Split(ginContext.Query("song_ids"), ","),
 		AlbumName: ginContext.Query("album_name"),
 	}
@@ -31,6 +33,6 @@ func AddAlbum(ginContext *gin.Context) {
 
 	ginContext.IndentedJSON(http.StatusOK, models.Result{
 		IsSuccessful: true,
-		Message:      "Added a new song",
+		Message:      "Added a new album",
 	})
 }
