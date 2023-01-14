@@ -31,6 +31,7 @@ func AddSong(ginContext *gin.Context) {
 			IsSuccessful: false,
 			Message:      err.Error(),
 		})
+		return
 	}
 
 	ginContext.IndentedJSON(http.StatusOK, models.Result{
