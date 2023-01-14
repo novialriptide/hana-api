@@ -15,6 +15,12 @@ func main() {
 	// Add a new artist profile
 	router.POST("/artists", controllers.AddArtist)
 
+	// Get an existing album
+	router.GET("/albums/:album_id", controllers.GetAlbumByID)
+
+	// Add a new album
+	router.POST("/albums", controllers.AddAlbum)
+
 	// Get x number of songs
 	router.GET("/songs", controllers.GetSongs)
 
