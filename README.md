@@ -9,8 +9,8 @@
  - [ ] Get song's audio file
  - [ ] Add song (file transfer needs to be added)
  - [ ] Add remixed song
- - [ ] Get album information
- - [ ] Add album
+ - [x] Get album information
+ - [x] Add album
  - [x] Get artist profile
  - [x] Add artist profile
 
