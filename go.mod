@@ -1,4 +1,4 @@
-module hana-server
+module hana-api
 
 go 1.18
 

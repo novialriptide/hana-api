@@ -1,7 +1,7 @@
 package main
 
 import (
-	"hana-server/controllers"
+	"hana-api/controllers"
 
 	"github.com/gin-gonic/gin"
 )

@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"context"
-	"hana-server/models"
+	"hana-api/models"
 	"net/http"
 	"strings"
 
