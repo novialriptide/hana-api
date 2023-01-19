@@ -1,4 +1,4 @@
-# Hana Server
+# Hana API
 
 ## Goals
  - Utilize MongoDB to store audio files
@@ -7,7 +7,7 @@
 ## Methods to Add
  - [x] Get song information
  - [ ] Get song's audio file
- - [ ] Add song (file transfer needs to be added)
+ - [x] Add song (file transfer needs to be added)
  - [ ] Add remixed song
  - [x] Get album information
  - [x] Add album
