@@ -7,7 +7,8 @@
 ## Methods to Add
  - [x] Get song information
  - [ ] Get song's audio file
- - [x] Add song (file transfer needs to be added)
+ - [x] Add song
+ - [ ] Add song file data using GridFS
  - [ ] Add remixed song
  - [x] Get album information
  - [x] Add album
