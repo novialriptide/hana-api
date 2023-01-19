@@ -31,7 +31,7 @@ func main() {
 	router.POST("/songs", controllers.AddSong)
 
 	// Add a new source to an existing song
-	// TODO: router.POST("/songs/:song_id/file")
+	router.POST("/songs/:song_id/file", controllers.AddSongFile)
 
 	router.Run("localhost:25565")
 }
