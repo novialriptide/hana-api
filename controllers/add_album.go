@@ -4,7 +4,6 @@ import (
 	"context"
 	"hana-api/models"
 	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -17,7 +16,6 @@ func AddAlbum(ginContext *gin.Context) {
 	s := models.Album{
 		ID:        primitive.NewObjectID(),
 		AlbumID:   uuid.New().String(),
-		SongIDs:   strings.Split(ginContext.Query("song_ids"), ","),
 		AlbumName: ginContext.Query("album_name"),
 	}
 
