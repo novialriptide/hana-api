@@ -1,8 +1,16 @@
 # Hana API
 
-## Goals
- - Utilize MongoDB to store audio files
- - config.yml to store the path for the audio files
+## Tech Goals
+ - [ ] Utilize MongoDB GridFS to store audio files
+
+## User Experience Goals
+ - [ ] Properly link two songs together by labeling them as remixes, instrumentals, or covers
+ - [ ] Upload music through inputting YouTube, Spotify, SoundCloud, and Bandcamp URLs
+ - [ ] Provide a smooth experience by moving between your devices from phone to desktop.
+ - [ ] Add login methods through Discord & Google
+ - [ ] Add custom music labels that users are able to add
+ - [ ] Add music genre labels
+ - [ ] 24/7 music streaming channel
 
 ## Methods to Add
  - [x] Get song information
