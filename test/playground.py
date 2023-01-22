@@ -4,9 +4,11 @@ unittest collection later.
 """
 import requests
 
-a = requests.post("http://localhost:25565/albums", params={
-    "album_name": "lmao",
-    "song_ids": ""
-}).json()
+a = requests.post(
+    "http://localhost:25565/songs/fgfgfg/file",
+    files={
+        "file": open("Mittsies - Vitality (t+pazolite Remix).mp3", "rb")
+    }
+).json()
 
 print(a)

@@ -1,45 +1,67 @@
 package controllers
 
 import (
-	"context"
 	"hana-api/models"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/gridfs"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func AddSongFile(ginContext *gin.Context) {
-	collection := mongoClient.Database("hana-db").Collection("songfiles")
-	songID := ginContext.Query("song_id")
-	file, fileErr := ginContext.FormFile(songID)
-	if fileErr != nil {
+	database := mongoClient.Database("hana-db")
+	// songID := ginContext.Param("song_id")
+
+	// Handle getting music data from RESTful API
+	fileForm, err := ginContext.FormFile("file")
+	if err != nil {
 		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{
 			IsSuccessful: false,
-			Message:      fileErr.Error(),
+			Message:      err.Error(),
 		})
-		return
+		panic(err)
 	}
 
-	ginContext.SaveUploadedFile(file, config.SongFilesPath)
-
-	s := models.SongFile{
-		ID:       primitive.NewObjectID(),
-		SongID:   songID,
-		FilePath: config.SongFilesPath,
-	}
-
-	_, mongoErr := collection.InsertOne(context.TODO(), s)
-	if mongoErr != nil {
+	openedFile, err := fileForm.Open()
+	if err != nil {
 		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{
 			IsSuccessful: false,
-			Message:      mongoErr.Error(),
+			Message:      err.Error(),
 		})
-		return
+		panic(err)
 	}
 
+	data, err := ioutil.ReadAll(openedFile)
+	if err != nil {
+		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{
+			IsSuccessful: false,
+			Message:      err.Error(),
+		})
+		panic(err)
+	}
+
+	// Handle adding the music data to MongoDB using GridFS
+	bucket, err := gridfs.NewBucket(database, options.GridFSBucket().SetName("musicdata"))
+	if err != nil {
+		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{
+			IsSuccessful: false,
+			Message:      err.Error(),
+		})
+		panic(err)
+	}
+	uploadOpts := options.GridFSUpload().SetChunkSizeBytes(200000)
+	uploadStream, err := bucket.OpenUploadStream("file.txt", uploadOpts)
+	if err != nil {
+		panic(err)
+	}
+
+	if _, err = uploadStream.Write(data); err != nil {
+		panic(err)
+	}
 	ginContext.IndentedJSON(http.StatusOK, models.Result{
 		IsSuccessful: true,
-		Message:      "Uploaded a new song file",
+		Message:      "Successfully uploaded",
 	})
 }
