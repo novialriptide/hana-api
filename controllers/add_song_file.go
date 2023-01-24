@@ -1,18 +1,33 @@
 package controllers
 
 import (
+	"context"
 	"hana-api/models"
-	"io/ioutil"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/gridfs"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func AddSongFile(ginContext *gin.Context) {
 	database := mongoClient.Database("hana-db")
-	// songID := ginContext.Param("song_id")
+
+	// Check if song data exists and fetch variables
+	songID := ginContext.Param("song_id")
+	filter := bson.D{{Key: "song_id", Value: songID}}
+	collection := mongoClient.Database("hana-db").Collection("songs")
+
+	var song models.Song
+	err := collection.FindOne(context.TODO(), filter).Decode(&song)
+	if err != nil {
+		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{
+			IsSuccessful: false,
+			Message:      "song data does not exist",
+		})
+		return
+	}
 
 	// Handle getting music data from RESTful API
 	fileForm, err := ginContext.FormFile("file")
@@ -33,15 +48,6 @@ func AddSongFile(ginContext *gin.Context) {
 		panic(err)
 	}
 
-	data, err := ioutil.ReadAll(openedFile)
-	if err != nil {
-		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{
-			IsSuccessful: false,
-			Message:      err.Error(),
-		})
-		panic(err)
-	}
-
 	// Handle adding the music data to MongoDB using GridFS
 	bucket, err := gridfs.NewBucket(database, options.GridFSBucket().SetName("musicdata"))
 	if err != nil {
@@ -51,15 +57,27 @@ func AddSongFile(ginContext *gin.Context) {
 		})
 		panic(err)
 	}
-	uploadOpts := options.GridFSUpload().SetChunkSizeBytes(200000)
-	uploadStream, err := bucket.OpenUploadStream("file.txt", uploadOpts)
+	objectID, err := bucket.UploadFromStream(fileForm.Filename, openedFile)
 	if err != nil {
+		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{
+			IsSuccessful: false,
+			Message:      err.Error(),
+		})
 		panic(err)
 	}
 
-	if _, err = uploadStream.Write(data); err != nil {
+	// Assign file to song ID
+	song.SongSourceID = objectID
+	_, err = collection.ReplaceOne(context.TODO(), filter, song)
+	if err != nil {
+		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{
+			IsSuccessful: false,
+			Message:      err.Error(),
+		})
 		panic(err)
 	}
+
+	// Output
 	ginContext.IndentedJSON(http.StatusOK, models.Result{
 		IsSuccessful: true,
 		Message:      "Successfully uploaded",

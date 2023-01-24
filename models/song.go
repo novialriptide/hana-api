@@ -10,5 +10,6 @@ type Song struct {
 	SongGenreID    string             `bson:"song_genre_id"`
 	UploaderUserID string             `bson:"uploader_user_id"`
 	SongSource     string             `bson:"song_source"`
+	SongSourceID   primitive.ObjectID `bson:"song_source_id"`
 	SongName       string             `bson:"song_name"`
 }

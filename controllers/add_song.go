@@ -36,6 +36,6 @@ func AddSong(ginContext *gin.Context) {
 
 	ginContext.IndentedJSON(http.StatusOK, models.Result{
 		IsSuccessful: true,
-		Message:      "Added a new song",
+		Message:      s.SongID,
 	})
 }

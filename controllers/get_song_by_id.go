@@ -15,7 +15,6 @@ func GetSongByID(ginContext *gin.Context) {
 	collection := mongoClient.Database("hana-db").Collection("songs")
 
 	var result models.Song
-
 	err := collection.FindOne(context.TODO(), filter).Decode(&result)
 	if err != nil {
 		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{
