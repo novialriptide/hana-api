@@ -16,7 +16,7 @@
  - [x] Get song information
  - [ ] Get song's audio file
  - [x] Add song
- - [ ] Add song file data using GridFS
+ - [x] Add song file data using GridFS
  - [ ] Add remixed song
  - [x] Get album information
  - [x] Add album
