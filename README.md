@@ -14,7 +14,7 @@
 
 ## Methods to Add
  - [x] Get song information
- - [ ] Get song's audio file
+ - [x] Get song's audio file
  - [x] Add song
  - [x] Add song file data using GridFS
  - [ ] Add remixed song

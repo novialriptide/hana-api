@@ -30,6 +30,9 @@ func main() {
 	// Add a new song
 	router.POST("/songs", controllers.AddSong)
 
+	// Get a source from an existing song
+	router.GET("/songs/:song_id/file", controllers.GetSongFile)
+
 	// Add a new source to an existing song
 	router.POST("/songs/:song_id/file", controllers.AddSongFile)
 
