@@ -39,7 +39,7 @@ func GetSongFile(ginContext *gin.Context) {
 	}
 
 	fileBuffer := bytes.NewBuffer(nil)
-	if _, err := bucket.DownloadToStream(song.SongSourceID, fileBuffer); err != nil {
+	if _, err := bucket.DownloadToStream(song.SongFileID, fileBuffer); err != nil {
 		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{
 			IsSuccessful: false,
 			Message:      err.Error(),
@@ -47,7 +47,7 @@ func GetSongFile(ginContext *gin.Context) {
 		panic(err)
 	}
 
-	filter = bson.D{{Key: "_id", Value: song.SongSourceID}}
+	filter = bson.D{{Key: "_id", Value: song.SongFileID}}
 
 	var metadata gridfs.File
 	metadataResult := bucket.GetFilesCollection().FindOne(context.TODO(), filter)

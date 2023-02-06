@@ -9,7 +9,7 @@ a = requests.post(
     params={
         "album_id": "",
         "song_genre_id": "",
-        "song_source": "",
+        "song_file_source": "",
         "song_name": "",
         "artist_ids": "",
     }

@@ -16,13 +16,13 @@ func AddSong(ginContext *gin.Context) {
 	collection := mongoClient.Database("hana-db").Collection("songs")
 
 	s := mongo_models.Song{
-		ID:          primitive.NewObjectID(),
-		SongID:      uuid.New().String(),
-		AlbumID:     ginContext.Query("album_id"),
-		ArtistIDs:   strings.Split(ginContext.Query("artist_ids"), ","),
-		SongGenreID: ginContext.Query("song_genre_id"),
-		SongSource:  ginContext.Query("song_source"),
-		SongName:    ginContext.Query("song_name"),
+		ID:             primitive.NewObjectID(),
+		SongID:         uuid.New().String(),
+		AlbumID:        ginContext.Query("album_id"),
+		ArtistIDs:      strings.Split(ginContext.Query("artist_ids"), ","),
+		SongGenreID:    ginContext.Query("song_genre_id"),
+		SongFileSource: ginContext.Query("song_file_source"),
+		SongName:       ginContext.Query("song_name"),
 	}
 
 	_, err := collection.InsertOne(context.TODO(), s)

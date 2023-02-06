@@ -68,7 +68,7 @@ func AddSongFile(ginContext *gin.Context) {
 	}
 
 	// Assign file to song ID
-	song.SongSourceID = objectID
+	song.SongFileID = objectID
 	_, err = collection.ReplaceOne(context.TODO(), filter, song)
 	if err != nil {
 		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{
