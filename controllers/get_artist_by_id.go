@@ -3,6 +3,7 @@ package controllers
 import (
 	"context"
 	"hana-api/models"
+	mongo_models "hana-api/models/mongo"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,7 +15,7 @@ func GetArtistByID(ginContext *gin.Context) {
 	filter := bson.D{{Key: "artist_id", Value: artistID}}
 	collection := mongoClient.Database("hana-db").Collection("artists")
 
-	var result models.Artist
+	var result mongo_models.Artist
 
 	err := collection.FindOne(context.TODO(), filter).Decode(&result)
 	if err != nil {

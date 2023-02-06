@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"hana-api/models"
+	mongo_models "hana-api/models/mongo"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -18,7 +19,7 @@ func GetSongFile(ginContext *gin.Context) {
 	filter := bson.D{{Key: "song_id", Value: songID}}
 	collection := mongoClient.Database("hana-db").Collection("songs")
 
-	var song models.Song
+	var song mongo_models.Song
 	err := collection.FindOne(context.TODO(), filter).Decode(&song)
 	if err != nil {
 		ginContext.IndentedJSON(http.StatusInternalServerError, models.Result{

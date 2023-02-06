@@ -3,6 +3,7 @@ package controllers
 import (
 	"context"
 	"hana-api/models"
+	mongo_models "hana-api/models/mongo"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,7 +14,7 @@ import (
 func AddAlbum(ginContext *gin.Context) {
 	collection := mongoClient.Database("hana-db").Collection("albums")
 
-	s := models.Album{
+	s := mongo_models.Album{
 		ID:        primitive.NewObjectID(),
 		AlbumID:   uuid.New().String(),
 		AlbumName: ginContext.Query("album_name"),

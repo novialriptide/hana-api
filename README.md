@@ -2,6 +2,7 @@
 
 ## Tech Goals
  - [x] Utilize MongoDB GridFS to store audio files
+ - [ ] Make different interfaces get outputted for the REST API
 
 ## User Experience Goals
  - [ ] Properly link two songs together by labeling them as remixes, instrumentals, or covers
@@ -13,6 +14,7 @@
  - [ ] 24/7 music streaming channel
 
 ## Methods to Add
+ - [x] Get songs
  - [x] Get song information
  - [x] Get song's audio file
  - [x] Add song

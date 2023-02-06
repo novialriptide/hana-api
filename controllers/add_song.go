@@ -3,6 +3,7 @@ package controllers
 import (
 	"context"
 	"hana-api/models"
+	mongo_models "hana-api/models/mongo"
 	"net/http"
 	"strings"
 
@@ -14,7 +15,7 @@ import (
 func AddSong(ginContext *gin.Context) {
 	collection := mongoClient.Database("hana-db").Collection("songs")
 
-	s := models.Song{
+	s := mongo_models.Song{
 		ID:          primitive.NewObjectID(),
 		SongID:      uuid.New().String(),
 		AlbumID:     ginContext.Query("album_id"),
