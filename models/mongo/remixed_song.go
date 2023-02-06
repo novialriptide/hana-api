@@ -1,9 +1,7 @@
 package mongo_models
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
-
 type RemixedSong struct {
-	ID primitive.ObjectID `bson:"_id"`
 	Song
+	RemixArtistID  string `bson:"remix_artist_id"`
 	OriginalSongID string `bson:"original_song_id"`
 }
