@@ -1,7 +1,7 @@
 # Hana API
 
 ## Tech Goals
- - [ ] Utilize MongoDB GridFS to store audio files
+ - [x] Utilize MongoDB GridFS to store audio files
 
 ## User Experience Goals
  - [ ] Properly link two songs together by labeling them as remixes, instrumentals, or covers
